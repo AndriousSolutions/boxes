@@ -24,11 +24,14 @@ class InheritedBoxWidget extends StatefulWidget {
   final Widget child;
 
   @override
-  State<StatefulWidget> createState() => _InheritedBoxWidgetState();
+  State<StatefulWidget> createState() => InheritedBoxWidgetState();
 }
 
-class _InheritedBoxWidgetState extends State<InheritedBoxWidget> {
+class InheritedBoxWidgetState extends State<InheritedBoxWidget> {
   //
+  // Set when this InheritedWidget's dependencies are to be notified.
+  bool notified = false;
+
   @override
   void initState() {
     super.initState();

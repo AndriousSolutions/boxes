@@ -29,13 +29,12 @@ class AppBarBox extends StatelessWidget implements PreferredSizeWidget {
         ),
         preferredSize = _PreferredAppBarSize(controller);
 
+  @override
+  final Size preferredSize;
   final Widget widget;
 
   @override
   Widget build(BuildContext context) => widget;
-
-  @override
-  final Size preferredSize;
 }
 
 class _PreferredAppBarSize extends Size {

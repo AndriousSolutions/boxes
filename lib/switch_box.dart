@@ -141,7 +141,7 @@ class _SwitchBoxState extends StateBox<bool, SwitchBox> {
   void initState() {
     super.initState();
     //
-    con.boxValue = w.value ?? false;
+    con.boxValue ??= w.value ?? false;
   }
 
   SwitchBoxMixin? box;

@@ -41,7 +41,21 @@ mixin InheritedWidgetBoxMixin {
 //  final Set<BuildContext> _dependencies = HashSet<BuildContext>();
 
   @mustCallSuper
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    //
+    bool shouldUpdate = false;
+
+    /// At least one of the dependencies was notified.
+    for (final state in _inheritedStates.values) {
+      //
+      if (state.notified) {
+        shouldUpdate = true;
+        state.notified = false;
+        break;
+      }
+    }
+    return shouldUpdate;
+  }
 
   /// Create an InheritedWidget supplying a Widget's Key as id.
   Widget inheritedWidget({Key? keyId, required Widget child}) =>
@@ -52,10 +66,10 @@ mixin InheritedWidgetBoxMixin {
       );
 
   final _inheritedKeys = HashMap<Key, int>();
-  final _inheritedStates = HashMap<int, State<InheritedBoxWidget>>();
+  final _inheritedStates = HashMap<int, InheritedBoxWidgetState>();
 
   /// Add the 'Inherited' State object to the Controller's collection
-  void initState(State<InheritedBoxWidget> state) {
+  void initState(InheritedBoxWidgetState state) {
     final hash = state.hashCode;
     _inheritedStates.addAll({hash: state});
     final key = state.widget.keyId;
@@ -66,7 +80,7 @@ mixin InheritedWidgetBoxMixin {
   }
 
   /// Call in the 'Inherited' State object's dispose() function
-  void dispose(State<InheritedBoxWidget> state) {
+  void dispose(InheritedBoxWidgetState state) {
 //    _dependencies.clear();
     final hash = state.hashCode;
     _inheritedStates.remove(hash);
@@ -95,8 +109,8 @@ mixin InheritedWidgetBoxMixin {
   }
 
   /// Notify by the box Widget's key or by another type (to be later determined).
-  bool notifyByKey(Object? object) {
-    State? state;
+  bool notifyClient(Object? object) {
+    InheritedBoxWidgetState? state;
     var notify = object != null;
     if (notify) {
       notify = object is Key;
@@ -109,6 +123,7 @@ mixin InheritedWidgetBoxMixin {
         if (notify) {
           notify = state.mounted;
           if (notify) {
+            state.notified = true;
             //ignore: INVALID_USE_OF_PROTECTED_MEMBER
             state.setState(() {});
           }
@@ -122,6 +137,7 @@ mixin InheritedWidgetBoxMixin {
   void notifyClients() {
     for (final state in _inheritedStates.values) {
       if (state.mounted) {
+        state.notified = true;
         //ignore: INVALID_USE_OF_PROTECTED_MEMBER
         state.setState(() {});
       }
@@ -140,6 +156,33 @@ mixin InheritedWidgetBoxMixin {
   }
 }
 
+// Widget makeWidgetBox({
+//   Key? keyId,
+//   bool? stateful,
+//   Object? controller,
+//   Widget? child,
+//   WidgetBuilder? builder,
+// }) {
+//   Widget widget;
+//   assert(child != null || builder != null, "Must provide a 'child' widget");
+//   assert(
+//       (child != null && builder == null) || (child == null && builder != null),
+//       "Must provide only one not both: child or builder");
+//   if (child == null && builder == null) {
+//     widget = const SizedBox();
+//   } else if (builder != null &&
+//       stateful != null &&
+//       stateful &&
+//       controller != null) {
+//     widget = makeStatefulInheritedWidgetBox(
+//         keyId: keyId, controller: controller, builder: builder);
+//   } else {
+//     widget = makeInheritedWidgetBox(
+//         keyId: keyId, controller: controller, child: child!);
+//   }
+//   return widget;
+// }
+
 /// Insert an InheritedWidget to the Widget tree if a controller is provided
 Widget makeInheritedWidgetBox({
   Key? keyId,
@@ -148,10 +191,65 @@ Widget makeInheritedWidgetBox({
 }) {
   Widget widget;
   //  Supply the Widget's Key if any as id.
-  if (controller != null && controller is InheritedWidgetBoxMixin) {
-    widget = controller.inheritedWidget(keyId: keyId, child: child);
-  } else {
+  if (controller == null || controller is! InheritedWidgetBoxMixin) {
     widget = child;
+  } else {
+    //
+    widget = controller.inheritedWidget(keyId: keyId, child: child);
   }
   return widget;
+}
+
+/// Insert an InheritedWidget to the Widget tree if a controller is provided
+/// wrapped in a StatefulWidget
+Widget makeStatefulInheritedWidgetBox({
+  Key? keyId,
+  required Object controller,
+  required WidgetBuilder builder,
+}) {
+  return _StatefulBoxWrapper(
+    key: PrivateBoxGlobalKey(controller),
+    keyId: keyId,
+    controller: controller,
+    builder: builder,
+  );
+}
+
+/// Supply a GlobalKey so Wrapper's State object is created ever only once.
+class PrivateBoxGlobalKey extends GlobalObjectKey {
+  const PrivateBoxGlobalKey(super.value);
+}
+
+class _StatefulBoxWrapper extends StatefulWidget {
+  const _StatefulBoxWrapper({
+    super.key,
+    this.keyId,
+    required this.controller,
+    required this.builder,
+  });
+  final Key? keyId;
+  final Object controller;
+  final WidgetBuilder builder;
+  @override
+  State<StatefulWidget> createState() => _StatefulBoxWrapperState();
+}
+
+class _StatefulBoxWrapperState extends State<_StatefulBoxWrapper> {
+  @override
+  void initState() {
+    super.initState();
+
+    child = widget.builder(context);
+
+    final controller = widget.controller;
+
+    if (controller is InheritedWidgetBoxMixin) {
+      child = controller.inheritedWidget(keyId: widget.keyId, child: child);
+    }
+  }
+
+  late Widget child;
+
+  @override
+  Widget build(BuildContext context) => child;
 }
