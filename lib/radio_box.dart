@@ -23,12 +23,12 @@ class RadioBox extends StatefulWidgetBox<String> {
     this.opt02,
     this.groupValue,
     this.onChanged,
-    this.mainAxisAlignment,
-    this.mainAxisSize,
-    this.crossAxisAlignment,
-    this.textDirection,
-    this.verticalDirection,
-    this.textBaseline,
+    // this.mainAxisAlignment,
+    // this.mainAxisSize,
+    // this.crossAxisAlignment,
+    // this.textDirection,
+    // this.verticalDirection,
+    // this.textBaseline,
   });
   //
   final Text? title;
@@ -41,25 +41,25 @@ class RadioBox extends StatefulWidgetBox<String> {
 
   final ValueChanged<String>? onChanged;
 
-  /// How the children should be placed along the main axis.
-  final MainAxisAlignment? mainAxisAlignment;
-
-  /// How much space should be occupiedin the main axis.
-  final MainAxisSize? mainAxisSize;
-
-  /// How the children should be placed along the cross axis.
-  final CrossAxisAlignment? crossAxisAlignment;
-
-  /// Determines the order to lay children out horizontally and how to interpret
-  /// `start` and `end` in the horizontal direction.
-  final TextDirection? textDirection;
-
-  /// Determines the order to lay children out vertically and how to interpret
-  /// `start` and `end` in the vertical direction.
-  final VerticalDirection? verticalDirection;
-
-  /// If aligning items according to their baseline, which baseline to use.
-  final TextBaseline? textBaseline;
+  // /// How the children should be placed along the main axis.
+  // final MainAxisAlignment? mainAxisAlignment;
+  //
+  // /// How much space should be occupiedin the main axis.
+  // final MainAxisSize? mainAxisSize;
+  //
+  // /// How the children should be placed along the cross axis.
+  // final CrossAxisAlignment? crossAxisAlignment;
+  //
+  // /// Determines the order to lay children out horizontally and how to interpret
+  // /// `start` and `end` in the horizontal direction.
+  // final TextDirection? textDirection;
+  //
+  // /// Determines the order to lay children out vertically and how to interpret
+  // /// `start` and `end` in the vertical direction.
+  // final VerticalDirection? verticalDirection;
+  //
+  // /// If aligning items according to their baseline, which baseline to use.
+  // final TextBaseline? textBaseline;
 
   @override
   StateBox<String, RadioBox> createState() => _RadioBoxState();
@@ -83,7 +83,8 @@ class _RadioBoxState extends StateBox<String, RadioBox> {
       // If there's a default selection
       initValue = widget.groupValue;
       options = buildOptions();
-      con.boxValue = box?.groupValue ?? w.groupValue;
+      con.boxValue ??= box?.groupValue ?? w.groupValue;
+      box?.groupValue = con.boxValue;
     }
   }
 
@@ -141,28 +142,30 @@ class _RadioBoxState extends StateBox<String, RadioBox> {
               value: labels[i] ?? '',
               groupValue: con.boxValue,
               onChanged: (v) {
+                //
                 setState(() {
                   con.boxValue = v!;
                 });
-                if (box?.onChanged != null) {
-                  box!.onChanged(v!);
-                }
+
+                box?.onChanged?.call(v!);
+
                 if (w.onChanged != null) {
                   w.onChanged!(v!);
                 }
               }),
           InkWell(
             onTap: () {
+              //
               final v = labels[i];
+
               setState(() {
                 con.boxValue = v!;
               });
-              if (box?.onTap != null) {
-                box!.onTap();
-              }
-              if (box?.onChanged != null) {
-                box!.onChanged(v!);
-              }
+
+              box?.onTap?.call();
+
+              box?.onChanged?.call(v!);
+
               if (w.onChanged != null) {
                 w.onChanged!(v!);
               }
@@ -175,18 +178,12 @@ class _RadioBoxState extends StateBox<String, RadioBox> {
     }
 
     return Row(
-      mainAxisSize: box?.mainAxisSize ?? w.mainAxisSize ?? MainAxisSize.max,
-      mainAxisAlignment: box?.mainAxisAlignment ??
-          w.mainAxisAlignment ??
-          MainAxisAlignment.start,
-      crossAxisAlignment: box?.crossAxisAlignment ??
-          w.crossAxisAlignment ??
-          CrossAxisAlignment.center,
-      textDirection: box?.textDirection ?? w.textDirection,
-      verticalDirection: box?.verticalDirection ??
-          w.verticalDirection ??
-          VerticalDirection.down,
-      textBaseline: box?.textBaseline ?? w.textBaseline,
+      mainAxisSize: box?.mainAxisSize ?? MainAxisSize.max,
+      mainAxisAlignment: box?.mainAxisAlignment ?? MainAxisAlignment.start,
+      crossAxisAlignment: box?.crossAxisAlignment ?? CrossAxisAlignment.center,
+      textDirection: box?.textDirection,
+      verticalDirection: box?.verticalDirection ?? VerticalDirection.down,
+      textBaseline: box?.textBaseline,
       children: [
         box?.title ?? w.title ?? const Text(''),
         Row(children: radioRow)
@@ -196,7 +193,35 @@ class _RadioBoxState extends StateBox<String, RadioBox> {
 }
 
 /// User has the option to extend a class or use a mixin (see below)
-class RadioBoxController<T> with RadioBoxMixin<T> {}
+class RadioBoxController<T> with RadioBoxMixin<T> {
+  RadioBoxController({
+    Text? title,
+    Text? opt01,
+    Text? opt02,
+    T? groupValue,
+    ValueChanged<String>? onChanged,
+    VoidCallback? onTap,
+    MainAxisAlignment? mainAxisAlignment,
+    MainAxisSize? mainAxisSize,
+    CrossAxisAlignment? crossAxisAlignment,
+    TextDirection? textDirection,
+    VerticalDirection? verticalDirection,
+    TextBaseline? textBaseline,
+  }) {
+    this.title = title;
+    this.opt01 = opt01;
+    this.opt02 = opt02;
+    this.groupValue = groupValue;
+    this.onChanged = onChanged;
+    this.onTap = onTap;
+    this.mainAxisAlignment = mainAxisAlignment;
+    this.mainAxisSize = mainAxisSize;
+    this.crossAxisAlignment = crossAxisAlignment;
+    this.textDirection = textDirection;
+    this.verticalDirection = verticalDirection;
+    this.textBaseline = textBaseline;
+  }
+}
 
 /// Supply the functions and properties of its implemented mixin.
 mixin RadioBoxMixin<T> implements ControllerBoxMixin<T> {
@@ -207,18 +232,12 @@ mixin RadioBoxMixin<T> implements ControllerBoxMixin<T> {
   @override
   T? boxValue;
 
-  /// Signature for callbacks that report that an underlying value has changed.
-  @override
-  void onChanged(T? value) {}
-
-  /// Called when the dropdown button is tapped.
-  @override
-  void onTap() {}
-
   Text? title;
   Text? opt01;
   Text? opt02;
   T? groupValue;
+  ValueChanged<String>? onChanged;
+  VoidCallback? onTap;
   MainAxisAlignment? mainAxisAlignment;
   MainAxisSize? mainAxisSize;
   CrossAxisAlignment? crossAxisAlignment;

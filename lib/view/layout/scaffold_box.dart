@@ -98,7 +98,7 @@ class _ScaffoldBox extends StatelessWidget {
       onEndDrawerChanged: controller.onEndDrawerChanged,
       bottomNavigationBar:
           controller.bottomNavigationBar ?? bottomNavigationBar,
-      bottomSheet: bottomSheet ?? controller.bottomSheet,
+      bottomSheet: controller.bottomSheet ?? bottomSheet,
       backgroundColor: controller.backgroundColor,
       resizeToAvoidBottomInset: controller.resizeToAvoidBottomInset,
       primary: controller.primary ?? true,
@@ -117,5 +117,6 @@ class _ScaffoldBox extends StatelessWidget {
   }
 }
 
+/// Used if a controller is not explicitly provided to the Box widget above.
 class _ScaffoldBoxController
     with ScaffoldFieldsBoxMixin, InheritedWidgetBoxMixin {}

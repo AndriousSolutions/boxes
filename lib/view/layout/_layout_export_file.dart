@@ -15,3 +15,5 @@ export 'container_row_box.dart';
 export 'materialapp_box.dart';
 
 export 'scaffold_box.dart';
+
+export 'text_box.dart';

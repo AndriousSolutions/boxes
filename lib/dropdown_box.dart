@@ -27,25 +27,25 @@ class DropDownBox<T> extends StatefulWidgetBox<T> {
     this.disabledHint,
     this.onChanged,
     this.onTap,
-    this.elevation,
-    this.style,
-    this.underline,
-    this.icon,
-    this.iconDisabledColor,
-    this.iconEnabledColor,
-    this.iconSize,
-    this.isDense,
-    this.isExpanded,
-    this.itemHeight,
-    this.focusColor,
-    this.focusNode,
-    this.autofocus,
-    this.dropdownColor,
-    this.menuMaxHeight,
-    this.enableFeedback,
-    this.alignment,
-    this.borderRadius,
-    this.padding,
+    // this.elevation,
+    // this.style,
+    // this.underline,
+    // this.icon,
+    // this.iconDisabledColor,
+    // this.iconEnabledColor,
+    // this.iconSize,
+    // this.isDense,
+    // this.isExpanded,
+    // this.itemHeight,
+    // this.focusColor,
+    // this.focusNode,
+    // this.autofocus,
+    // this.dropdownColor,
+    // this.menuMaxHeight,
+    // this.enableFeedback,
+    // this.alignment,
+    // this.borderRadius,
+    // this.padding,
   });
 
   final List<T>? items;
@@ -56,25 +56,25 @@ class DropDownBox<T> extends StatefulWidgetBox<T> {
   final ValueChanged<T?>? onChanged;
   final VoidCallback? onTap;
   final DropdownButtonBuilder? selectedItemBuilder;
-  final int? elevation;
-  final TextStyle? style;
-  final Widget? underline;
-  final Widget? icon;
-  final Color? iconDisabledColor;
-  final Color? iconEnabledColor;
-  final double? iconSize;
-  final bool? isDense;
-  final bool? isExpanded;
-  final double? itemHeight;
-  final Color? focusColor;
-  final FocusNode? focusNode;
-  final bool? autofocus;
-  final Color? dropdownColor;
-  final double? menuMaxHeight;
-  final bool? enableFeedback;
-  final AlignmentGeometry? alignment;
-  final BorderRadius? borderRadius;
-  final EdgeInsetsGeometry? padding;
+  // final int? elevation;
+  // final TextStyle? style;
+  // final Widget? underline;
+  // final Widget? icon;
+  // final Color? iconDisabledColor;
+  // final Color? iconEnabledColor;
+  // final double? iconSize;
+  // final bool? isDense;
+  // final bool? isExpanded;
+  // final double? itemHeight;
+  // final Color? focusColor;
+  // final FocusNode? focusNode;
+  // final bool? autofocus;
+  // final Color? dropdownColor;
+  // final double? menuMaxHeight;
+  // final bool? enableFeedback;
+  // final AlignmentGeometry? alignment;
+  // final BorderRadius? borderRadius;
+  // final EdgeInsetsGeometry? padding;
 
   @override
   StateBox<T, DropDownBox<T>> createState() => _DropDownBoxState<T>();
@@ -87,7 +87,8 @@ class _DropDownBoxState<T> extends StateBox<T, DropDownBox<T>> {
     if (con is DropDownBoxMixin<T>) {
       box = con as DropDownBoxMixin<T>?;
     }
-    con.boxValue = box?.value ?? w.value;
+    con.boxValue ??= box?.value ?? w.value;
+    box?.value = con.boxValue;
   }
 
   DropDownBoxMixin<T>? box;
@@ -119,37 +120,37 @@ class _DropDownBoxState<T> extends StateBox<T, DropDownBox<T>> {
           //
           con.boxValue = value;
 
-          con.onChanged(value);
+          if (value != null) {
+            box?.onChanged?.call(value);
+          }
 
           w.onChanged?.call(value);
 
           setState(() {});
         },
         onTap: () {
-          con.onTap();
+          box?.onTap?.call();
           w.onTap?.call();
         },
-        elevation: box?.elevation ?? w.elevation ?? 8,
-        style: box?.style ?? w.style,
-        underline: box?.underline ?? w.underline,
-        icon: box?.icon ?? w.icon,
-        iconDisabledColor: box?.iconDisabledColor ?? w.iconDisabledColor,
-        iconEnabledColor: box?.iconEnabledColor ?? w.iconEnabledColor,
-        iconSize: box?.iconSize ?? w.iconSize ?? 24,
-        isDense: box?.isDense ?? w.isDense ?? false,
-        isExpanded: box?.isExpanded ?? w.isExpanded ?? false,
-        itemHeight: box?.itemHeight ?? w.itemHeight ?? kMinInteractiveDimension,
-        focusColor: box?.focusColor ?? w.focusColor,
-        focusNode: box?.focusNode ?? w.focusNode,
-        autofocus: box?.autofocus ?? w.autofocus ?? false,
-        dropdownColor: box?.dropdownColor ?? w.dropdownColor,
-        menuMaxHeight: box?.menuMaxHeight ?? w.menuMaxHeight,
-        enableFeedback: box?.enableFeedback ?? w.enableFeedback,
-        alignment:
-            box?.alignment ?? w.alignment ?? AlignmentDirectional.centerStart,
-        borderRadius:
-            box?.borderRadius ?? w.borderRadius ?? BorderRadius.circular(16),
-        padding: box?.padding ?? w.padding,
+        elevation: box?.elevation ?? 8,
+        style: box?.style,
+        underline: box?.underline,
+        icon: box?.icon,
+        iconDisabledColor: box?.iconDisabledColor,
+        iconEnabledColor: box?.iconEnabledColor,
+        iconSize: box?.iconSize ?? 24,
+        isDense: box?.isDense ?? false,
+        isExpanded: box?.isExpanded ?? false,
+        itemHeight: box?.itemHeight ?? kMinInteractiveDimension,
+        focusColor: box?.focusColor,
+        focusNode: box?.focusNode,
+        autofocus: box?.autofocus ?? false,
+        dropdownColor: box?.dropdownColor,
+        menuMaxHeight: box?.menuMaxHeight,
+        enableFeedback: box?.enableFeedback,
+        alignment: box?.alignment ?? AlignmentDirectional.centerStart,
+        borderRadius: box?.borderRadius ?? BorderRadius.circular(16),
+        padding: box?.padding,
       );
 
   /// Supply the menu items.
@@ -190,7 +191,65 @@ class _DropDownBoxState<T> extends StateBox<T, DropDownBox<T>> {
 }
 
 /// User has the option to extend a class or use a mixin (see below)
-class DropDownBoxController<T> with DropDownBoxMixin<T> {}
+class DropDownBoxController<T> with DropDownBoxMixin<T> {
+  DropDownBoxController({
+    List<T>? items,
+    ValueChanged<T>? onChanged,
+    VoidCallback? onTap,
+    List<DropdownMenuItem<T>>? menuItems,
+    T? value,
+    Widget? hint,
+    Widget? disabledHint,
+    DropdownButtonBuilder? selectedItemBuilder,
+    int? elevation,
+    TextStyle? style,
+    Widget? underline,
+    Widget? icon,
+    Color? iconDisabledColor,
+    Color? iconEnabledColor,
+    double? iconSize,
+    bool? isDense,
+    bool? isExpanded,
+    double? itemHeight,
+    Color? focusColor,
+    FocusNode? focusNode,
+    bool? autofocus,
+    Color? dropdownColor,
+    double? menuMaxHeight,
+    bool? enableFeedback,
+    AlignmentGeometry? alignment,
+    BorderRadius? borderRadius,
+    EdgeInsetsGeometry? padding,
+  }) {
+    this.items = items;
+    this.onChanged = onChanged;
+    this.onTap = onTap;
+    this.menuItems = menuItems;
+    this.value = value;
+    this.hint = hint;
+    this.disabledHint = disabledHint;
+    this.selectedItemBuilder = selectedItemBuilder;
+    this.elevation = elevation;
+    this.style = style;
+    this.underline = underline;
+    this.icon = icon;
+    this.iconDisabledColor = iconDisabledColor;
+    this.iconEnabledColor = iconEnabledColor;
+    this.iconSize = iconSize;
+    this.isDense = isDense;
+    this.isExpanded = isExpanded;
+    this.itemHeight = itemHeight;
+    this.focusColor = focusColor;
+    this.focusNode = focusNode;
+    this.autofocus = autofocus;
+    this.dropdownColor = dropdownColor;
+    this.menuMaxHeight = menuMaxHeight;
+    this.enableFeedback = enableFeedback;
+    this.alignment = alignment;
+    this.borderRadius = borderRadius;
+    this.padding = padding;
+  }
+}
 
 /// Supply the functions and properties of its implemented mixin.
 mixin DropDownBoxMixin<T> implements ControllerBoxMixin<T> {
@@ -201,15 +260,17 @@ mixin DropDownBoxMixin<T> implements ControllerBoxMixin<T> {
   @override
   T? boxValue;
 
-  /// Signature for callbacks that report that an underlying value has changed.
-  @override
-  void onChanged(T? value) {}
-
-  /// Called when the dropdown button is tapped.
-  @override
-  void onTap() {}
+  // /// Signature for callbacks that report that an underlying value has changed.
+  // @override
+  // void onChanged(T? value) {}
+  //
+  // /// Called when the dropdown button is tapped.
+  // @override
+  // void onTap() {}
 
   List<T>? items;
+  ValueChanged<T>? onChanged;
+  VoidCallback? onTap;
   List<DropdownMenuItem<T>>? menuItems;
   T? value;
   Widget? hint;

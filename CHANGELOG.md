@@ -1,4 +1,9 @@
 
+## 1.2.0
+November 15, 2023
+- Extended example app
+- SwitchBox and SlideBox removed properties for controller
+
 ## 1.1.0
 November 12, 2023
 - InheritedWidget State class no public, InheritedBoxWidgetState

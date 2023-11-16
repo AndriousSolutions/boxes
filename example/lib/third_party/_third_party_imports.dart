@@ -4,8 +4,10 @@
 // found in the LICENSE file.
 //
 
-import '_example_imports.dart';
+export 'app_drawer.dart';
 
-import 'package:boxes/boxes.dart';
+export 'brightness_setting.dart';
 
-class ScaffoldController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {}
+export 'group_value.dart';
+
+export 'switchbox_controller.dart';

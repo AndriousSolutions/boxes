@@ -4,7 +4,7 @@
 // found in the LICENSE file.
 //
 
-import '_example_imports.dart';
+import '../_example_imports.dart';
 
 import 'package:boxes/boxes.dart';
 

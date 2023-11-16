@@ -61,7 +61,7 @@ class _SpinnerBoxState extends StateBox<int, SpinnerBox> {
     if (con is SpinnerBoxMixin) {
       box = con as SpinnerBoxMixin?;
     }
-    con.boxValue = null;
+    con.boxValue ??= null;
   }
 
   SpinnerBoxMixin? box;
@@ -140,17 +140,44 @@ class _SpinnerBoxState extends StateBox<int, SpinnerBox> {
     //
     con.boxValue = value;
 
-    box?.onChanged(value);
-
-    final onItemChanged =
-        box?.onSelectedItemChanged ?? widget.onSelectedItemChanged;
-
-    onItemChanged?.call(value);
+    box?.onSelectedItemChanged?.call(value);
   }
 }
 
 /// User has the option to extend a class or use a mixin (see below)
-class SpinnerBoxController with SpinnerBoxMixin {}
+class SpinnerBoxController with SpinnerBoxMixin {
+  SpinnerBoxController({
+    double? diameterRatio,
+    Color? backgroundColor,
+    double? offAxisFraction,
+    bool? useMagnifier,
+    double? magnification,
+    FixedExtentScrollController? scrollController,
+    double? itemExtent,
+    double? squeeze,
+    ValueChanged<int>? onSelectedItemChanged,
+    List<Widget>? children,
+    NullableIndexedWidgetBuilder? itemBuilder,
+    int? childCount,
+    Widget? selectionOverlay,
+    bool? looping,
+  }) {
+    this.diameterRatio = diameterRatio;
+    this.backgroundColor = backgroundColor;
+    this.offAxisFraction = offAxisFraction;
+    this.useMagnifier = useMagnifier;
+    this.magnification = magnification;
+    this.scrollController = scrollController;
+    this.squeeze = squeeze;
+    this.itemExtent = itemExtent;
+    this.onSelectedItemChanged = onSelectedItemChanged;
+    this.children = children;
+    this.itemBuilder = itemBuilder;
+    this.childCount = childCount;
+    this.selectionOverlay = selectionOverlay;
+    this.looping = looping;
+  }
+}
 
 /// Supply the functions and properties of its implemented mixin.
 mixin SpinnerBoxMixin implements ControllerBoxMixin<int> {
@@ -161,13 +188,13 @@ mixin SpinnerBoxMixin implements ControllerBoxMixin<int> {
   @override
   int? boxValue;
 
-  /// Signature for callbacks that report that an underlying value has changed.
-  @override
-  void onChanged(int? value) {}
-
-  /// Called when the dropdown button is tapped.
-  @override
-  void onTap() {}
+  // /// Signature for callbacks that report that an underlying value has changed.
+  // @override
+  // void onChanged(int? value) {}
+  //
+  // /// Called when the dropdown button is tapped.
+  // @override
+  // void onTap() {}
 
   double? diameterRatio;
   Color? backgroundColor;

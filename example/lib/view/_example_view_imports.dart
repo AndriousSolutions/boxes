@@ -4,6 +4,8 @@
 // found in the LICENSE file.
 //
 
-import '_example_imports.dart';
+export 'example_home_page.dart';
 
-void main() => runApp(const MyApp());
+export 'example_myapp.dart';
+
+export 'property_description.dart';

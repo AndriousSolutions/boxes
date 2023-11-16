@@ -13,16 +13,16 @@ import 'package:flutter/material.dart';
 export 'package:boxes/controller/InheritedWidget_box_mixin.dart';
 
 ///
-class ContainerRow extends StatelessWidget {
+class ContainerRowBox extends StatelessWidget {
   ///
-  ContainerRow({
+  ContainerRowBox({
     super.key,
     ContainerFieldsBoxMixin? controller,
     required List<Widget> children,
   }) : widget = makeInheritedWidgetBox(
           keyId: key,
           controller: controller,
-          child: _ContainerRow(
+          child: _ContainerRowBox(
             controller: controller,
             children: children,
           ),
@@ -34,9 +34,9 @@ class ContainerRow extends StatelessWidget {
   Widget build(BuildContext context) => widget;
 }
 
-class _ContainerRow extends StatelessWidget {
+class _ContainerRowBox extends StatelessWidget {
   ///
-  _ContainerRow({
+  _ContainerRowBox({
     super.key,
     ContainerFieldsBoxMixin? controller,
     required this.children,
@@ -85,5 +85,6 @@ class _ContainerRow extends StatelessWidget {
   }
 }
 
+/// Used if a controller is not explicitly provided to the Box widget above.
 class _ContainerRowBoxController
     with ContainerFieldsBoxMixin, RowFieldsBoxMixin, InheritedWidgetBoxMixin {}

@@ -19,118 +19,7 @@ class SwitchBox extends StatefulWidgetBox<bool> {
   SwitchBox({
     super.key,
     super.controller,
-    this.value,
-    this.onChanged,
-    this.leading,
-    this.title,
-    this.subtitle,
-    this.trailing,
-    this.isThreeLine,
-    this.dense,
-    this.visualDensity,
-    this.shape,
-    this.style,
-    this.selectedColor,
-    this.iconColor,
-    this.textColor,
-    this.titleTextStyle,
-    this.subtitleTextStyle,
-    this.leadingAndTrailingTextStyle,
-    this.contentPadding,
-    this.enabled,
-    this.onTap,
-    this.onLongPress,
-    this.onFocusChange,
-    this.mouseCursor,
-    this.selected,
-    this.focusColor,
-    this.hoverColor,
-    this.splashColor,
-    this.focusNode,
-    this.autofocus,
-    this.tileColor,
-    this.selectedTileColor,
-    this.enableFeedback,
-    this.horizontalTitleGap,
-    this.minVerticalPadding,
-    this.minLeadingWidth,
-    this.titleAlignment,
-    this.activeColor,
-    this.activeTrackColor,
-    this.inactiveThumbColor,
-    this.inactiveTrackColor,
-    this.activeThumbImage,
-    this.onActiveThumbImageError,
-    this.inactiveThumbImage,
-    this.onInactiveThumbImageError,
-    this.thumbColor,
-    this.trackColor,
-    this.trackOutlineColor,
-    this.trackOutlineWidth,
-    this.thumbIcon,
-    this.materialTapTargetSize,
-    this.dragStartBehavior,
-    this.overlayColor,
-    this.splashRadius,
   });
-
-  /// Whether this switch is on or off.
-  final bool? value;
-  final ValueChanged<bool>? onChanged;
-
-  final Widget? leading;
-  final Widget? title;
-  final Widget? subtitle;
-  final Widget? trailing;
-  final bool? isThreeLine;
-  final bool? dense;
-  final VisualDensity? visualDensity;
-  final ShapeBorder? shape;
-  final Color? selectedColor;
-  final Color? iconColor;
-  final Color? textColor;
-  final TextStyle? titleTextStyle;
-  final TextStyle? subtitleTextStyle;
-  final TextStyle? leadingAndTrailingTextStyle;
-  final ListTileStyle? style;
-  final EdgeInsetsGeometry? contentPadding;
-  final bool? enabled;
-  final GestureTapCallback? onTap;
-  final GestureLongPressCallback? onLongPress;
-  final bool? selected;
-  final Color? splashColor;
-  final Color? tileColor;
-  final Color? selectedTileColor;
-  final bool? enableFeedback;
-  final double? horizontalTitleGap;
-  final double? minVerticalPadding;
-  final double? minLeadingWidth;
-  final ListTileTitleAlignment? titleAlignment;
-
-  final MouseCursor? mouseCursor;
-  final Color? focusColor;
-  final Color? hoverColor;
-  final FocusNode? focusNode;
-  final ValueChanged<bool>? onFocusChange;
-  final bool? autofocus;
-
-  final Color? activeColor;
-  final Color? activeTrackColor;
-  final Color? inactiveThumbColor;
-  final Color? inactiveTrackColor;
-  final ImageProvider? activeThumbImage;
-  final ImageErrorListener? onActiveThumbImageError;
-  final ImageProvider? inactiveThumbImage;
-  final ImageErrorListener? onInactiveThumbImageError;
-  final MaterialStateProperty<Color?>? thumbColor;
-  final MaterialStateProperty<Color?>? trackColor;
-  final MaterialStateProperty<Color?>? trackOutlineColor;
-  final MaterialStateProperty<double?>? trackOutlineWidth;
-  final MaterialStateProperty<Icon?>? thumbIcon;
-  final MaterialTapTargetSize? materialTapTargetSize;
-  final DragStartBehavior? dragStartBehavior;
-  final MaterialStateProperty<Color?>? overlayColor;
-  final double? splashRadius;
 
   @override
   StateBox<bool, SwitchBox> createState() => _SwitchBoxState();
@@ -141,7 +30,11 @@ class _SwitchBoxState extends StateBox<bool, SwitchBox> {
   void initState() {
     super.initState();
     //
-    con.boxValue ??= w.value ?? false;
+    if (con is SwitchBoxMixin) {
+      box = con as SwitchBoxMixin?;
+    }
+    con.boxValue ??= box?.value ??= false;
+    box?.value = con.boxValue;
   }
 
   SwitchBoxMixin? box;
@@ -159,92 +52,104 @@ class _SwitchBoxState extends StateBox<bool, SwitchBox> {
 
   @override
   Widget build(BuildContext context) => ListTile(
-        leading: box?.leading ?? w.leading,
-        title: box?.title ?? w.title,
-        subtitle: box?.subtitle ?? w.subtitle,
-        isThreeLine: box?.isThreeLine ?? w.isThreeLine ?? false,
-        dense: box?.dense ?? w.dense,
-        visualDensity: box?.visualDensity ?? w.visualDensity,
-        shape: box?.shape ?? w.shape,
-        style: box?.style ?? w.style,
-        selectedColor: box?.selectedColor ?? w.selectedColor,
-        iconColor: box?.iconColor ?? w.iconColor,
-        textColor: box?.textColor ?? w.textColor,
-        titleTextStyle: box?.titleTextStyle ?? w.titleTextStyle,
-        subtitleTextStyle: box?.subtitleTextStyle ?? w.subtitleTextStyle,
-        leadingAndTrailingTextStyle:
-            box?.leadingAndTrailingTextStyle ?? w.leadingAndTrailingTextStyle,
-        contentPadding: box?.contentPadding ?? w.contentPadding,
-        enabled: box?.enabled ?? w.enabled ?? true,
+        leading: box?.leading,
+        title: box?.title,
+        subtitle: box?.subtitle,
+        isThreeLine: box?.isThreeLine ?? false,
+        dense: box?.dense,
+        visualDensity: box?.visualDensity,
+        shape: box?.shape,
+        style: box?.style,
+        selectedColor: box?.selectedColor,
+        iconColor: box?.iconColor,
+        textColor: box?.textColor,
+        titleTextStyle: box?.titleTextStyle,
+        subtitleTextStyle: box?.subtitleTextStyle,
+        leadingAndTrailingTextStyle: box?.leadingAndTrailingTextStyle,
+        contentPadding: box?.contentPadding,
+        enabled: box?.enabled ?? true,
         onTap: () {
-          box?.onTap();
+          box?.onTap?.call();
           _onChanged(!con.boxValue!);
         },
-        onLongPress: box?.onLongPress ?? w.onLongPress,
-        onFocusChange: box?.onFocusChange ?? w.onFocusChange,
-        mouseCursor: box?.mouseCursor ?? w.mouseCursor,
-        selected: box?.selected ?? w.selected ?? false,
-        focusColor: box?.focusColor ?? w.focusColor,
-        hoverColor: box?.hoverColor ?? w.hoverColor,
-        splashColor: box?.splashColor ?? w.splashColor,
-        focusNode: box?.focusNode ?? w.focusNode,
-        autofocus: box?.autofocus ?? w.autofocus ?? false,
-        tileColor: box?.tileColor ?? w.tileColor,
-        selectedTileColor: box?.selectedTileColor ?? w.selectedTileColor,
-        enableFeedback: box?.enableFeedback ?? w.enableFeedback,
-        horizontalTitleGap: box?.horizontalTitleGap ?? w.horizontalTitleGap,
-        minVerticalPadding: box?.minVerticalPadding ?? w.minVerticalPadding,
-        minLeadingWidth: box?.minLeadingWidth ?? w.minLeadingWidth,
-        titleAlignment: box?.titleAlignment ?? w.titleAlignment,
+        onLongPress: box?.onLongPress,
+        onFocusChange: box?.onFocusChange,
+        mouseCursor: box?.mouseCursor,
+        selected: box?.selected ?? false,
+        focusColor: box?.focusColor,
+        hoverColor: box?.hoverColor,
+        splashColor: box?.splashColor,
+        focusNode: box?.focusNode,
+        autofocus: box?.autofocus ?? false,
+        tileColor: box?.tileColor,
+        selectedTileColor: box?.selectedTileColor,
+        enableFeedback: box?.enableFeedback,
+        horizontalTitleGap: box?.horizontalTitleGap,
+        minVerticalPadding: box?.minVerticalPadding,
+        minLeadingWidth: box?.minLeadingWidth,
+        titleAlignment: box?.titleAlignment,
         trailing: Switch(
           value: con.boxValue!,
           onChanged: _onChanged,
-          activeColor: box?.activeColor ?? w.activeColor,
-          activeTrackColor: box?.activeTrackColor ?? w.activeTrackColor,
-          inactiveThumbColor: box?.inactiveThumbColor ?? w.inactiveThumbColor,
-          inactiveTrackColor: box?.inactiveTrackColor ?? w.inactiveTrackColor,
-          activeThumbImage: box?.activeThumbImage ?? w.activeThumbImage,
-          onActiveThumbImageError:
-              box?.onActiveThumbImageError ?? w.onActiveThumbImageError,
-          inactiveThumbImage: box?.inactiveThumbImage ?? w.inactiveThumbImage,
-          onInactiveThumbImageError:
-              box?.onInactiveThumbImageError ?? w.onInactiveThumbImageError,
-          thumbColor: box?.thumbColor ?? w.thumbColor,
-          trackColor: box?.trackColor ?? w.trackColor,
-          trackOutlineColor: box?.trackOutlineColor ?? w.trackOutlineColor,
-          trackOutlineWidth: box?.trackOutlineWidth ?? w.trackOutlineWidth,
-          thumbIcon: box?.thumbIcon ?? w.thumbIcon,
-          materialTapTargetSize:
-              box?.materialTapTargetSize ?? w.materialTapTargetSize,
-          dragStartBehavior: box?.dragStartBehavior ??
-              w.dragStartBehavior ??
-              DragStartBehavior.start,
-          mouseCursor: box?.mouseCursor ?? w.mouseCursor,
-          focusColor: box?.focusColor ?? w.focusColor,
-          hoverColor: box?.hoverColor ?? w.hoverColor,
-          overlayColor: box?.overlayColor ?? w.overlayColor,
-          splashRadius: box?.splashRadius ?? w.splashRadius,
-          focusNode: box?.focusNode ?? w.focusNode,
-          onFocusChange: box?.onFocusChange ?? w.onFocusChange,
-          autofocus: box?.autofocus ?? w.autofocus ?? false,
+          activeColor: box?.activeColor,
+          activeTrackColor: box?.activeTrackColor,
+          inactiveThumbColor: box?.inactiveThumbColor,
+          inactiveTrackColor: box?.inactiveTrackColor,
+          activeThumbImage: box?.activeThumbImage,
+          onActiveThumbImageError: box?.onActiveThumbImageError,
+          inactiveThumbImage: box?.inactiveThumbImage,
+          onInactiveThumbImageError: box?.onInactiveThumbImageError,
+          thumbColor: box?.thumbColor,
+          trackColor: box?.trackColor,
+          trackOutlineColor: box?.trackOutlineColor,
+          trackOutlineWidth: box?.trackOutlineWidth,
+          thumbIcon: box?.thumbIcon,
+          materialTapTargetSize: box?.materialTapTargetSize,
+          dragStartBehavior: box?.dragStartBehavior ?? DragStartBehavior.start,
+          mouseCursor: box?.mouseCursor,
+          focusColor: box?.focusColor,
+          hoverColor: box?.hoverColor,
+          overlayColor: box?.overlayColor,
+          splashRadius: box?.splashRadius,
+          focusNode: box?.focusNode,
+          onFocusChange: box?.onFocusChange,
+          autofocus: box?.autofocus ?? false,
         ),
       );
 
   // Called when the value toggles
   void _onChanged(bool v) {
     //
-    setState(() => con.boxValue = v);
+    setState(() {});
 
-    con.onChanged(v);
+    con.boxValue = v;
 
-    if (w.onChanged != null) {
-      w.onChanged!(v);
-    }
+    box?.value = v;
+
+    box?.onChanged?.call(v);
   }
 }
 
-/// User has the option to extend a class or use a mixin (see below)
-class SwitchBoxController with SwitchBoxMixin {}
+/// You would create a class with the mixin below and then
+/// define the getters and setters necessary for the fields defined in that mixin
+class _SwitchBoxController with SwitchBoxMixin {
+  /// Only define the ones you want to use
+
+  @override
+  get tileColor => Colors.blue;
+
+  @override
+  get style => _style;
+  @override
+  set style(ListTileStyle? style) {
+    // Do any testing you like
+    if (style != null) {
+      _style = style;
+    }
+  }
+
+  ListTileStyle? _style;
+}
 
 /// Supply the functions and properties of its implemented mixin.
 mixin SwitchBoxMixin implements ControllerBoxMixin<bool> {
@@ -254,15 +159,6 @@ mixin SwitchBoxMixin implements ControllerBoxMixin<bool> {
 
   @override
   bool? boxValue;
-
-  /// Signature for callbacks that report that an underlying value has changed.
-  @override
-  //ignore: avoid_positional_boolean_parameters
-  void onChanged(bool? value) {}
-
-  /// Called when the dropdown button is tapped.
-  @override
-  void onTap() {}
 
   bool? value;
   Widget? leading;
@@ -282,6 +178,7 @@ mixin SwitchBoxMixin implements ControllerBoxMixin<bool> {
   ListTileStyle? style;
   EdgeInsetsGeometry? contentPadding;
   bool? enabled;
+  VoidCallback? onTap;
   GestureLongPressCallback? onLongPress;
   bool? selected;
   Color? splashColor;
@@ -300,6 +197,7 @@ mixin SwitchBoxMixin implements ControllerBoxMixin<bool> {
   ValueChanged<bool>? onFocusChange;
   bool? autofocus;
 
+  ValueChanged<bool>? onChanged;
   Color? activeColor;
   Color? activeTrackColor;
   Color? inactiveThumbColor;

@@ -19,3 +19,5 @@ export 'materialapp_box_mixin.dart';
 export 'row_box_mixin.dart';
 
 export 'scaffold_box_mixin.dart';
+
+export 'text_box_mixin.dart';

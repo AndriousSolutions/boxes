@@ -79,5 +79,6 @@ class _CenterColumn extends StatelessWidget {
   }
 }
 
+/// Used if a controller is not explicitly provided to the Box widget above.
 class _CenterColumnBoxController
     with CenterFieldsBoxMixin, ColumnFieldsBoxMixin, InheritedWidgetBoxMixin {}

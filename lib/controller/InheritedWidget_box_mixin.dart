@@ -40,12 +40,12 @@ mixin InheritedWidgetBoxMixin {
 // todo: Don't collect dependencies for now.
 //  final Set<BuildContext> _dependencies = HashSet<BuildContext>();
 
+  // todo: At first glance, it's inefficient but this is called by all the dependences
   @mustCallSuper
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    //
     bool shouldUpdate = false;
 
-    /// At least one of the dependencies was notified.
+    /// At least one of the dependencies must be notified.
     for (final state in _inheritedStates.values) {
       //
       if (state.notified) {
@@ -109,7 +109,7 @@ mixin InheritedWidgetBoxMixin {
   }
 
   /// Notify by the box Widget's key or by another type (to be later determined).
-  bool notifyClient(Object? object) {
+  bool notifyBox(Object? object) {
     InheritedBoxWidgetState? state;
     var notify = object != null;
     if (notify) {
@@ -134,7 +134,9 @@ mixin InheritedWidgetBoxMixin {
   }
 
   /// Notify all the controller's dependent box widgets
-  void notifyClients() {
+  /// All have to be processed by the function, updateShouldNotify()
+  void notifyBoxes() {
+    // Get the ball rolling. Call all the InheritedWidget's again.
     for (final state in _inheritedStates.values) {
       if (state.mounted) {
         state.notified = true;
@@ -146,7 +148,7 @@ mixin InheritedWidgetBoxMixin {
 
   /// Best to clear dependencies from time to time
   //todo: Where to call this?
-  Future<void> _clearClients() async {
+  Future<void> _clearBoxes() async {
     // toList(growable: false) prevents concurrent error
     for (final context in _newDependencies.toList(growable: false)) {
       if (!context.mounted) {

@@ -14,11 +14,11 @@ mixin ControllerBoxMixin<T> {
   /// Supply the associated State object
   StateBox<T, StatefulWidgetBox<T>>? boxState;
 
-  /// Signature for callbacks that report that an underlying value has changed.
-  void onChanged(T? value) {}
-
-  /// Called when the dropdown button is tapped.
-  void onTap() {}
+  // /// Signature for callbacks that report that an underlying value has changed.
+  // void onChanged(T? value) {}
+  //
+  // /// Called when the dropdown button is tapped.
+  // void onTap() {}
 }
 
 class ControllerBox<T> with ControllerBoxMixin<T> {}

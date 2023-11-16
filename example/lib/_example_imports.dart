@@ -6,12 +6,8 @@
 
 export 'package:flutter/material.dart';
 
-export 'main.dart';
+export 'third_party/_third_party_imports.dart';
 
-export 'appbarbox_controller.dart';
+export 'view/_example_view_imports.dart';
 
-export 'centercolumbox_contoller.dart';
-
-export 'materialappbox_controller.dart';
-
-export 'scaffoldbox_controller.dart';
+export 'controller/_example_controller_imports.dart';
