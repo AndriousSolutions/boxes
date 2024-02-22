@@ -6,7 +6,17 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        CrossAxisAlignment,
+        Key,
+        MainAxisAlignment,
+        MainAxisSize,
+        Text,
+        TextBaseline,
+        TextDirection,
+        ValueChanged,
+        VerticalDirection;
 
 mixin RadioFieldsBoxMixin {
   Key? key;

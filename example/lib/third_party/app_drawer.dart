@@ -4,12 +4,21 @@
 // found in the LICENSE file.
 //
 
-import 'package:boxes/switch_box.dart';
-import 'package:boxes/slider_box.dart';
-import 'package:example/_example_imports.dart';
+import 'package:boxes/boxes.dart'
+    show
+        ContainerBox,
+        ContainerFieldsBoxMixin,
+        SliderBox,
+        SliderBoxController,
+        SwitchBox,
+        SwitchBoxController,
+        TextBox,
+        TextFieldsBoxMixin;
+
+import 'package:example/_example_app_imports.dart';
 
 ///
-class AppDrawer {
+class AppDrawer with ContainerFieldsBoxMixin, TextFieldsBoxMixin {
   factory AppDrawer() => _this ??= AppDrawer._();
   static AppDrawer? _this;
   AppDrawer._() {
@@ -17,10 +26,26 @@ class AppDrawer {
   }
   late AppBarController appBarController;
 
+  /// ContainerBox
+  @override
+  get alignment => Alignment.center;
+
+  /// ContainerBox
+  @override
+  get padding => const EdgeInsets.only(top: 16, bottom: 4);
+
+  /// TextBox
+  @override
+  get style => const TextStyle(fontSize: 18);
+
   ///
   Widget get drawer => Drawer(
         child: ListView(
           children: <Widget>[
+            ContainerBox(
+              controller: this,
+              child: TextBox(data: '~~ AppBar ~~', controller: this),
+            ),
             _leading,
             _title,
             _actions,

@@ -4,10 +4,14 @@
 // found in the LICENSE file.
 //
 
+export 'dart:math';
+
 export 'package:flutter/material.dart';
+
+export 'package:google_fonts/google_fonts.dart';
+
+export 'controller/_example_controller_imports.dart';
 
 export 'third_party/_third_party_imports.dart';
 
 export 'view/_example_view_imports.dart';
-
-export 'controller/_example_controller_imports.dart';

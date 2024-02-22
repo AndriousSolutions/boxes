@@ -5,11 +5,19 @@ library boxes;
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-import 'package:boxes/controller/InheritedWidget_box_mixin.dart';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        AlignmentDirectional,
+        Color,
+        DrawerCallback,
+        FloatingActionButtonAnimator,
+        FloatingActionButtonLocation,
+        Key,
+        PreferredSizeWidget,
+        Widget;
 
-import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 
 export 'package:boxes/controller/InheritedWidget_box_mixin.dart';
 

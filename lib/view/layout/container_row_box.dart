@@ -6,9 +6,25 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:boxes/view/_view_export_file.dart';
+import 'package:boxes/boxes_view.dart'
+    show
+        ContainerFieldsBoxMixin,
+        InheritedWidgetBoxMixin,
+        RowFieldsBoxMixin,
+        makeInheritedWidgetBox;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        Clip,
+        Container,
+        CrossAxisAlignment,
+        MainAxisAlignment,
+        MainAxisSize,
+        Row,
+        StatelessWidget,
+        VerticalDirection,
+        Widget;
 
 export 'package:boxes/controller/InheritedWidget_box_mixin.dart';
 
@@ -37,6 +53,7 @@ class ContainerRowBox extends StatelessWidget {
 class _ContainerRowBox extends StatelessWidget {
   ///
   _ContainerRowBox({
+    // ignore: unused_element
     super.key,
     ContainerFieldsBoxMixin? controller,
     required this.children,

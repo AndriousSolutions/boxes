@@ -6,4 +6,4 @@ library boxes;
 // found in the LICENSE file.
 //
 
-export 'package:boxes/view/_view_export_file.dart';
+export '/view/_view_export_file.dart';

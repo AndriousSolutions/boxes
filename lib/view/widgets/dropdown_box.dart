@@ -6,11 +6,12 @@ library boxes;
 // found in the LICENSE file.
 //
 import 'package:boxes/controller/controller_box.dart';
+
 import 'package:boxes/view/state_box.dart';
 
 import 'package:flutter/material.dart';
 
-/// Likely needed by subclasses
+/// Likely needed
 export 'package:boxes/controller/controller_box.dart';
 
 ///

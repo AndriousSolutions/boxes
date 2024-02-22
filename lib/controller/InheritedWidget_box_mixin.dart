@@ -10,7 +10,7 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:boxes/view/inherited_widget_box.dart';
+import '/view/inherited_widget_box.dart';
 
 mixin InheritedWidgetBoxMixin {
   //
@@ -28,7 +28,7 @@ mixin InheritedWidgetBoxMixin {
         _newDependencies.add(context);
       } else {
         context.dependOnInheritedElement(element);
-//        _dependencies.add(context);
+//        _dependencies.add(context);  // todo: keep for now.
       }
     }
     return dependOn;
@@ -40,7 +40,7 @@ mixin InheritedWidgetBoxMixin {
 // todo: Don't collect dependencies for now.
 //  final Set<BuildContext> _dependencies = HashSet<BuildContext>();
 
-  // todo: At first glance, it's inefficient but this is called by all the dependences
+  // todo: At first glance, it's inefficient but this is called by all the dependencies
   @mustCallSuper
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
     bool shouldUpdate = false;
@@ -69,7 +69,7 @@ mixin InheritedWidgetBoxMixin {
   final _inheritedStates = HashMap<int, InheritedBoxWidgetState>();
 
   /// Add the 'Inherited' State object to the Controller's collection
-  void initState(InheritedBoxWidgetState state) {
+  void initInherited(InheritedBoxWidgetState state) {
     final hash = state.hashCode;
     _inheritedStates.addAll({hash: state});
     final key = state.widget.keyId;
@@ -80,7 +80,7 @@ mixin InheritedWidgetBoxMixin {
   }
 
   /// Call in the 'Inherited' State object's dispose() function
-  void dispose(InheritedBoxWidgetState state) {
+  void disposeInherited(InheritedBoxWidgetState state) {
 //    _dependencies.clear();
     final hash = state.hashCode;
     _inheritedStates.remove(hash);
@@ -100,7 +100,7 @@ mixin InheritedWidgetBoxMixin {
       if (_newDependencies.isNotEmpty) {
         for (final context in _newDependencies.toList(growable: false)) {
           context.dependOnInheritedElement(element);
-//          _dependencies.add(context);
+//          _dependencies.add(context); // todo: keep for now.
         }
         _newDependencies.clear();
       }
@@ -158,33 +158,6 @@ mixin InheritedWidgetBoxMixin {
   }
 }
 
-// Widget makeWidgetBox({
-//   Key? keyId,
-//   bool? stateful,
-//   Object? controller,
-//   Widget? child,
-//   WidgetBuilder? builder,
-// }) {
-//   Widget widget;
-//   assert(child != null || builder != null, "Must provide a 'child' widget");
-//   assert(
-//       (child != null && builder == null) || (child == null && builder != null),
-//       "Must provide only one not both: child or builder");
-//   if (child == null && builder == null) {
-//     widget = const SizedBox();
-//   } else if (builder != null &&
-//       stateful != null &&
-//       stateful &&
-//       controller != null) {
-//     widget = makeStatefulInheritedWidgetBox(
-//         keyId: keyId, controller: controller, builder: builder);
-//   } else {
-//     widget = makeInheritedWidgetBox(
-//         keyId: keyId, controller: controller, child: child!);
-//   }
-//   return widget;
-// }
-
 /// Insert an InheritedWidget to the Widget tree if a controller is provided
 Widget makeInheritedWidgetBox({
   Key? keyId,
@@ -202,8 +175,10 @@ Widget makeInheritedWidgetBox({
   return widget;
 }
 
-/// Insert an InheritedWidget to the Widget tree if a controller is provided
-/// wrapped in a StatefulWidget
+// todo: Not to be used very much.
+/// Insert an InheritedWidget to the Widget tree if
+/// a controller wrapped in a StatefulWidget
+/// where the child widget is determined by runtime.
 Widget makeStatefulInheritedWidgetBox({
   Key? keyId,
   required Object controller,
@@ -222,6 +197,8 @@ class PrivateBoxGlobalKey extends GlobalObjectKey {
   const PrivateBoxGlobalKey(super.value);
 }
 
+/// Wraps the UI widget
+/// but possibly not before wrapping it further with an InheritedWidget.
 class _StatefulBoxWrapper extends StatefulWidget {
   const _StatefulBoxWrapper({
     super.key,

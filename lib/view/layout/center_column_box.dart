@@ -6,7 +6,12 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:boxes/view/_view_export_file.dart';
+import 'package:boxes/boxes_view.dart'
+    show
+        CenterFieldsBoxMixin,
+        ColumnFieldsBoxMixin,
+        InheritedWidgetBoxMixin,
+        makeInheritedWidgetBox;
 
 import 'package:flutter/material.dart';
 
@@ -38,10 +43,11 @@ class CenterColumnBox extends StatelessWidget {
 ///
 class _CenterColumn extends StatelessWidget {
   _CenterColumn({
+    // ignore: unused_element
     super.key,
     ColumnFieldsBoxMixin? controller,
     required this.children,
-  }) : controller = controller ?? _CenterColumnBoxController();
+  }) : controller = controller ?? CenterColumnBoxController();
 
   final ColumnFieldsBoxMixin controller;
 
@@ -79,6 +85,26 @@ class _CenterColumn extends StatelessWidget {
   }
 }
 
-/// Used if a controller is not explicitly provided to the Box widget above.
-class _CenterColumnBoxController
-    with CenterFieldsBoxMixin, ColumnFieldsBoxMixin, InheritedWidgetBoxMixin {}
+/// User has the option to extend this class or use the mixin (see below)
+class CenterColumnBoxController
+    with CenterFieldsBoxMixin, ColumnFieldsBoxMixin, InheritedWidgetBoxMixin {
+  CenterColumnBoxController({
+    double? widthFactor,
+    double? heightFactor,
+    MainAxisAlignment? mainAxisAlignment,
+    MainAxisSize? mainAxisSize,
+    CrossAxisAlignment? crossAxisAlignment,
+    TextDirection? textDirection,
+    VerticalDirection? verticalDirection,
+    TextBaseline? textBaseline,
+  }) {
+    this.widthFactor = widthFactor;
+    this.heightFactor = heightFactor;
+    this.mainAxisAlignment = mainAxisAlignment;
+    this.mainAxisSize = mainAxisSize;
+    this.crossAxisAlignment = crossAxisAlignment;
+    this.textDirection = textDirection;
+    this.verticalDirection = verticalDirection;
+    this.textBaseline = textBaseline;
+  }
+}

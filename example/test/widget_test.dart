@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:example/_example_imports.dart';
+import 'package:example/_example_app_imports.dart';
 
 void main() {
   //

@@ -6,6 +6,7 @@ library boxes;
 // found in the LICENSE file.
 //
 import 'package:boxes/controller/controller_box.dart';
+
 import 'package:boxes/view/state_box.dart';
 
 import 'package:flutter/material.dart';
@@ -45,18 +46,18 @@ class _SlideBoxState extends StateBox<double, SliderBox> {
   void initState() {
     super.initState();
 
-    if (con is SliderBoxMixin) {
-      box = con as SliderBoxMixin?;
+    if (con is SliderFieldsBoxMixin) {
+      box = con as SliderFieldsBoxMixin?;
     }
   }
 
-  SliderBoxMixin? box;
+  SliderFieldsBoxMixin? box;
 
   @override
   void didUpdateWidget(covariant SliderBox oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (con is SliderBoxMixin) {
-      box = con as SliderBoxMixin?;
+    if (con is SliderFieldsBoxMixin) {
+      box = con as SliderFieldsBoxMixin?;
     } else {
       box = null;
     }
@@ -96,8 +97,8 @@ class _SlideBoxState extends StateBox<double, SliderBox> {
       ]);
 }
 
-/// User has the option to extend a class or use a mixin (see below)
-class SliderBoxController with SliderBoxMixin {
+/// User has the option to extend this class or use the mixin (see below)
+class SliderBoxController with SliderFieldsBoxMixin {
   SliderBoxController({
     ValueChanged<double>? onChanged,
     String? title,
@@ -120,7 +121,7 @@ class SliderBoxController with SliderBoxMixin {
 }
 
 /// Supply the functions and properties of its implemented mixin.
-mixin SliderBoxMixin implements ControllerBoxMixin<double> {
+mixin SliderFieldsBoxMixin implements ControllerBoxMixin<double> {
   //
   @override
   StateBox<double, StatefulWidgetBox<double>>? boxState;

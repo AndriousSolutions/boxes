@@ -4,7 +4,7 @@
 // found in the LICENSE file.
 //
 
-import 'package:example/_example_imports.dart';
+import 'package:example/_example_app_imports.dart';
 
 // class BrightnessSetting {
 //   factory BrightnessSetting(

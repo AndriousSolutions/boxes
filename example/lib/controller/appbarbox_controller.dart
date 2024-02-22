@@ -4,7 +4,7 @@
 // found in the LICENSE file.
 //
 
-import '../_example_imports.dart';
+import '../_example_app_imports.dart';
 
 import 'package:boxes/boxes.dart';
 
@@ -109,9 +109,9 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     // Always test parameters
     if (count == null) return false;
 
-    if (count > 50) return false;
+    if (count > 23) return false;
 
-    // if (count > 36) {
+    // if (count > 24) {
     //   _propertyText.description = "";
     //   iconTheme = null;
     //   actions = null;
@@ -120,7 +120,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     // }
     //
     // ///
-    // if (count > 35) {
+    // if (count > 23) {
     //   _propertyText.description = "AppBar's iconTheme";
     //   iconTheme = AppBarTheme.of(context).iconTheme?.copyWith(
     //         size: 26,
@@ -145,43 +145,43 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     //   return true;
     // }
 
-    if (count > 34) {
+    if (count > 22) {
       _propertyText.description = "";
       foregroundColor = null;
       notifyBoxes();
       return true;
     }
 
-    if (count > 33) {
+    if (count > 21) {
       _propertyText.description = "AppBar's foregroundColor";
       foregroundColor = Colors.pink;
       notifyBoxes();
       return true;
     }
 
-    if (count > 32) {
+    if (count > 20) {
       _propertyText.description = "";
       backgroundColor = null;
       notifyBoxes();
       return true;
     }
 
-    if (count > 31) {
+    if (count > 19) {
       _propertyText.description = "AppBar's backgroundColor";
       backgroundColor = Colors.greenAccent;
       notifyBoxes();
       return true;
     }
 
-    if (count > 30) {
+    if (count > 18) {
       _propertyText.description = "";
       shape = null;
       notifyBoxes();
       return true;
     }
 
-    if (count > 29) {
-      _propertyText.description = "AppBar's shape property";
+    if (count > 17) {
+      _propertyText.description = "AppBar's shape";
       shape = const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(30),
@@ -191,7 +191,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
       return true;
     }
 
-    if (count > 28) {
+    if (count > 16) {
       _propertyText.description = "";
       elevation = null;
       // shadowColor = null;
@@ -199,7 +199,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
       return true;
     }
 
-    if (count > 27) {
+    if (count > 15) {
       _propertyText.description = "AppBar's shadowColor & elevation";
       elevation = 16;
       // shadowColor = Colors.blueGrey;
@@ -207,14 +207,14 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
       return true;
     }
 
-    if (count > 26) {
+    if (count > 14) {
       _propertyText.description = "";
       bottom = null;
       notifyBoxes();
       return true;
     }
 
-    if (count > 25) {
+    if (count > 13) {
       _propertyText.description = "AppBar's bottom property";
       bottom = PreferredSize(
         preferredSize: const Size.fromHeight(4),
@@ -228,7 +228,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     }
 
     ///
-    if (count > 24) {
+    if (count > 12) {
       _propertyText.description = "";
       flexibleSpace = null;
       notifyBoxes();
@@ -236,7 +236,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     }
 
     ///
-    if (count > 23) {
+    if (count > 11) {
       _propertyText.description = "AppBar's flexibleSpace";
       flexibleSpace = const Center(
         child: Text(
@@ -252,14 +252,14 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
       return true;
     }
 
-    if (count > 22) {
+    if (count > 10) {
       primary = true;
       _propertyText.description = "AppBar is primary";
       notifyBoxes();
       return true;
     }
 
-    if (count > 21) {
+    if (count > 9) {
       primary = false;
       _propertyText.description = "AppBar is not primary";
       titleTextStyle = null;
@@ -267,14 +267,14 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
       return true;
     }
 
-    if (count > 20) {
+    if (count > 8) {
       _propertyText.description = "";
       titleTextStyle = null;
       notifyBoxes();
       return true;
     }
 
-    if (count > 19) {
+    if (count > 7) {
       _propertyText.description = "AppBar's font";
       titleTextStyle = const TextStyle(
         color: Colors.black,
@@ -287,7 +287,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     }
 
     ///
-    if (count > 18) {
+    if (count > 6) {
       _propertyText.description = "";
       actions = null;
       notifyBoxes();
@@ -295,7 +295,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     }
 
     ///
-    if (count > 17) {
+    if (count > 5) {
       _propertyText.description = "AppBar's added actions";
       actions = [
         const Padding(
@@ -318,14 +318,14 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     }
 
     ///
-    if (count > 16) {
+    if (count > 4) {
       title = null;
       _propertyText.description = "";
       notifyBoxes();
       return true;
     }
 
-    if (count > 15) {
+    if (count > 3) {
       title = const Text("Isn't this amazing?");
       _propertyText.description = "Isn't this amazing?";
       notifyBoxes();
@@ -333,7 +333,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     }
 
     ///
-    if (count > 14) {
+    if (count > 2) {
       leading = null;
       _propertyText.description = "";
       notifyBoxes();
@@ -341,7 +341,7 @@ class AppBarController with AppBarFieldsBoxMixin, InheritedWidgetBoxMixin {
     }
 
     ///
-    if (count > 13) {
+    if (count > 1) {
       leading = const Icon(Icons.insert_emoticon);
       _propertyText.description = "AppBar leading icon";
       notifyBoxes();

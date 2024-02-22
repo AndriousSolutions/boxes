@@ -6,7 +6,20 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        Clip,
+        Color,
+        IconThemeData,
+        Key,
+        PreferredSizeWidget,
+        ScrollNotificationPredicate,
+        ShapeBorder,
+        Size,
+        TextStyle,
+        Widget;
+
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 
 export 'package:flutter/services.dart' show SystemUiOverlayStyle;

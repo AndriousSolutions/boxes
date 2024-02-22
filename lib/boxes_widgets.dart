@@ -7,7 +7,4 @@ library boxes;
 //
 
 /// Widgets
-export 'package:boxes/dropdown_box.dart';
-export 'package:boxes/radio_box.dart';
-export 'package:boxes/spinner_box.dart';
-export 'package:boxes/switch_box.dart';
+export '/view/widgets/_widgets_export_file.dart';

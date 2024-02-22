@@ -6,12 +6,14 @@ library boxes;
 // found in the LICENSE file.
 //
 
-export 'package:boxes/controller/controller_box.dart';
-export 'package:boxes/view/_view_export_file.dart';
-export 'package:boxes/view/state_box.dart';
+/// Controller classes
+export '/controller/_controller_export_file.dart';
+
+/// State object
+export '/view/state_box.dart';
+
+/// UI widgets
+export '/boxes_view.dart';
 
 /// Widgets
-export 'package:boxes/dropdown_box.dart';
-export 'package:boxes/radio_box.dart';
-export 'package:boxes/spinner_box.dart';
-export 'package:boxes/switch_box.dart';
+export '/boxes_widgets.dart';

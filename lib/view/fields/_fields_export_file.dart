@@ -14,6 +14,8 @@ export 'column_box_mixin.dart';
 
 export 'container_box_mixin.dart';
 
+export 'image_box_mixin.dart';
+
 export 'materialapp_box_mixin.dart';
 
 export 'row_box_mixin.dart';

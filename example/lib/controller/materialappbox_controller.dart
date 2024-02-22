@@ -4,7 +4,7 @@
 // found in the LICENSE file.
 //
 
-import '../_example_imports.dart';
+import '../_example_app_imports.dart';
 
 import 'package:boxes/boxes.dart';
 
@@ -90,170 +90,157 @@ class MaterialAppController
 
   /// Routine changing the app's properties
   /// with every incrementation of the counter.
-  void onCount(int? count) {
+  bool onCount(int? count) {
     // Always test parameters
-    if (count == null) return;
+    if (count == null) return true;
 
     ///
-    if (count > 80) return;
+    if (count > 53) return false;
 
-    ///
-    if (BusinessEnd().onCount(count)) {
-      return;
-    }
-
-    ///
-    if (ScaffoldController().onCount(count)) {
-      return;
-    }
-
-    ///
-    if (AppBarController().onCount(count)) {
-      return;
-    }
-
-    if (count > 12) {
+    if (count > 52) {
       _propertyText.description = "";
       // null turns off the dark theme
       _themeMode = null;
       // If device is in 'dark mode', setting this to null is further necessary.
       _darkTheme = null;
       notifyBoxes();
-      return;
+      return true;
     }
 
-    if (count > 11) {
+    if (count > 51) {
       _propertyText.description = "Turn on Dark Mode";
       _themeMode = ThemeMode.dark;
       // field, darkTheme, cannot be null
       _darkTheme = ThemeData(brightness: Brightness.dark, useMaterial3: true);
       notifyBoxes();
-      return;
+      return true;
     }
 
     // if (count > 12) {
     //   _color = null;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
     //
     // if (count > 11) {
     //   _color = Colors.blue;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
 
-    if (count > 10) {
+    if (count > 50) {
       _showPerformanceOverlay = false;
       _propertyText.description = "";
       notifyBoxes();
-      return;
+      return true;
     }
 
-    if (count > 9) {
+    if (count > 49) {
       _showPerformanceOverlay = true;
       _propertyText.description = "Performance Overlay";
       notifyBoxes();
-      return;
+      return true;
     }
 
     // if (count > 10) {
     //   _checkerboardRasterCacheImages = false;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
     //
     // if (count > 8) {
     //   _checkerboardRasterCacheImages = true;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
 
     // if (count > 10) {
     //   _checkerboardOffscreenLayers = false;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
     //
     // if (count > 9) {
     //   _checkerboardOffscreenLayers = true;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
 
     // if (count > 10) {
     //   _showSemanticsDebugger = false;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
     //
     // if (count > 9) {
     //   _showSemanticsDebugger = true;
     //   notifyClients();
-    //   return;
+    //   return true;
     // }
 
-    if (count > 8) {
+    if (count > 48) {
       _showBanner = true;
       _propertyText.description = "";
       notifyBoxes();
-      return;
+      return true;
     }
 
-    if (count > 7) {
+    if (count > 47) {
       _showBanner = false;
       _propertyText.description = "Hide debug banner";
       notifyBoxes();
-      return;
+      return true;
     }
 
-    if (count > 6) {
+    if (count > 46) {
       _debugShowMaterialGrid = false;
       _propertyText.description = "";
       notifyBoxes();
-      return;
+      return true;
     }
 
-    if (count > 5) {
+    if (count > 45) {
       _debugShowMaterialGrid = true;
       _propertyText.description = "Show Material grid";
       notifyBoxes();
-      return;
+      return true;
     }
 
     ///
-    if (count > 4) {
+    if (count > 44) {
       _theme = _theme.copyWith(useMaterial3: true);
       _propertyText.description = "Back to Design ver. 3";
       notifyBoxes();
-      return;
+      return true;
     }
 
     ///
-    if (count > 3) {
+    if (count > 43) {
       _theme = _theme.copyWith(useMaterial3: false);
       _propertyText.description = "Material Design ver. 2";
       notifyBoxes();
-      return;
+      return true;
     }
 
     ///
-    if (count > 2) {
+    if (count > 42) {
       theme = null;
       _propertyText.description = "";
       notifyBoxes();
-      return;
+      return true;
     }
 
     ///
-    if (count > 1) {
+    if (count > 41) {
       _theme = ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         useMaterial3: true,
       );
       _propertyText.description = "MaterialApp's theme";
       notifyBoxes();
-      return;
+      return true;
     }
+
+    return false;
   }
 }

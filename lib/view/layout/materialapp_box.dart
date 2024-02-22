@@ -6,7 +6,11 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:boxes/view/_view_export_file.dart';
+import 'package:boxes/boxes_view.dart'
+    show
+        InheritedWidgetBoxMixin,
+        MaterialAppFieldsBoxMixin,
+        makeInheritedWidgetBox;
 
 import 'package:flutter/material.dart';
 
@@ -39,11 +43,12 @@ class MaterialAppBox extends StatelessWidget {
 class _MaterialAppBox extends StatelessWidget {
   ///
   _MaterialAppBox({
+    // ignore: unused_element
     super.key,
     MaterialAppFieldsBoxMixin? controller,
     this.home,
     this.routes,
-  }) : controller = controller ?? _MaterialAppBoxController();
+  }) : controller = controller ?? MaterialAppBoxController();
 
   final MaterialAppFieldsBoxMixin controller;
   final Widget? home;
@@ -102,6 +107,87 @@ class _MaterialAppBox extends StatelessWidget {
   }
 }
 
-/// Used if a controller is not explicitly provided to the Box widget above.
-class _MaterialAppBoxController
-    with MaterialAppFieldsBoxMixin, InheritedWidgetBoxMixin {}
+/// User has the option to extend this class or use the indicated mixin
+class MaterialAppBoxController
+    with MaterialAppFieldsBoxMixin, InheritedWidgetBoxMixin {
+  MaterialAppBoxController({
+    Key? key,
+    GlobalKey<NavigatorState>? navigatorKey,
+    GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey,
+    Widget? home,
+    Map<String, WidgetBuilder>? routes,
+    String? initialRoute,
+    RouteFactory? onGenerateRoute,
+    InitialRouteListFactory? onGenerateInitialRoutes,
+    RouteFactory? onUnknownRoute,
+    List<NavigatorObserver>? navigatorObservers,
+    RouteInformationProvider? routeInformationProvider,
+    RouteInformationParser<Object>? routeInformationParser,
+    RouterDelegate<Object>? routerDelegate,
+    BackButtonDispatcher? backButtonDispatcher,
+    RouterConfig<Object>? routerConfig,
+    TransitionBuilder? builder,
+    String? title,
+    GenerateAppTitle? onGenerateTitle,
+    ThemeData? theme,
+    ThemeData? darkTheme,
+    ThemeData? highContrastTheme,
+    ThemeData? highContrastDarkTheme,
+    ThemeMode? themeMode,
+    Duration? themeAnimationDuration,
+    Curve? themeAnimationCurve,
+    Color? color,
+    Locale? locale,
+    Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates,
+    LocaleListResolutionCallback? localeListResolutionCallback,
+    LocaleResolutionCallback? localeResolutionCallback,
+    Iterable<Locale>? supportedLocales,
+    bool? debugShowMaterialGrid,
+    bool? showPerformanceOverlay,
+    bool? checkerboardRasterCacheImages,
+    bool? checkerboardOffscreenLayers,
+    bool? showSemanticsDebugger,
+    bool? debugShowCheckedModeBanner,
+    Map<ShortcutActivator, Intent>? shortcuts,
+    Map<Type, Action<Intent>>? actions,
+    String? restorationScopeId,
+    ScrollBehavior? scrollBehavior,
+  }) {
+    this.key = key;
+    this.navigatorKey = navigatorKey;
+    this.scaffoldMessengerKey = scaffoldMessengerKey;
+    this.home = home;
+    this.routes = routes;
+    this.initialRoute = initialRoute;
+    this.onGenerateRoute = onGenerateRoute;
+    this.onGenerateInitialRoutes = onGenerateInitialRoutes;
+    this.onUnknownRoute = onUnknownRoute;
+    this.navigatorObservers = navigatorObservers;
+    this.builder = builder;
+    this.title = title;
+    this.onGenerateTitle = onGenerateTitle;
+    this.color = color;
+    this.theme = theme;
+    this.darkTheme = darkTheme;
+    this.highContrastTheme = highContrastTheme;
+    this.highContrastDarkTheme = highContrastDarkTheme;
+    this.themeMode = themeMode;
+    this.themeAnimationDuration = themeAnimationDuration;
+    this.themeAnimationCurve = themeAnimationCurve;
+    this.locale = locale;
+    this.localizationsDelegates = localizationsDelegates;
+    this.localeListResolutionCallback = localeListResolutionCallback;
+    this.localeResolutionCallback = localeResolutionCallback;
+    this.supportedLocales = supportedLocales;
+    this.debugShowMaterialGrid = debugShowMaterialGrid;
+    this.showPerformanceOverlay = showPerformanceOverlay;
+    this.checkerboardRasterCacheImages = checkerboardRasterCacheImages;
+    this.checkerboardOffscreenLayers = checkerboardOffscreenLayers;
+    this.showSemanticsDebugger = showSemanticsDebugger;
+    this.debugShowCheckedModeBanner = debugShowCheckedModeBanner;
+    this.shortcuts = shortcuts;
+    this.actions = actions;
+    this.restorationScopeId = restorationScopeId;
+    this.scrollBehavior = scrollBehavior;
+  }
+}

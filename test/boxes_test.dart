@@ -6,7 +6,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import '../example/lib/_example_imports.dart';
+import '../example/lib/_example_app_imports.dart';
 
 void main() {
   test('adds one to input values', () {

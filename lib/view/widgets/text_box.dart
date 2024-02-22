@@ -6,7 +6,8 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:boxes/view/_view_export_file.dart';
+import 'package:boxes/boxes_view.dart'
+    show InheritedWidgetBoxMixin, TextFieldsBoxMixin, makeInheritedWidgetBox;
 
 import 'package:flutter/material.dart';
 
@@ -17,20 +18,22 @@ class TextBox extends StatelessWidget {
   ///
   TextBox({
     super.key,
+    String? data,
     TextFieldsBoxMixin? controller,
   }) : widget = makeInheritedWidgetBox(
           keyId: key,
           controller: controller,
-          child: _TextBox(controller: controller),
+          child: _TextBox(controller: controller, data: data),
         );
 
   TextBox.rich({
     super.key,
+    InlineSpan? textSpan,
     TextFieldsBoxMixin? controller,
   }) : widget = makeInheritedWidgetBox(
           keyId: key,
           controller: controller,
-          child: _TextBox(controller: controller),
+          child: _TextBox(controller: controller, textSpan: textSpan),
         );
 
   final Widget widget;
@@ -43,10 +46,15 @@ class TextBox extends StatelessWidget {
 class _TextBox extends StatelessWidget {
   ///
   _TextBox({
+    // ignore: unused_element
     super.key,
     TextFieldsBoxMixin? controller,
-  }) : controller = controller ?? _TextBoxController();
+    this.data,
+    this.textSpan,
+  }) : controller = controller ?? TextBoxController();
 
+  final String? data;
+  final InlineSpan? textSpan;
   final TextFieldsBoxMixin controller;
 
   @override
@@ -60,9 +68,11 @@ class _TextBox extends StatelessWidget {
     Text text;
 
     // data takes precedence even if textSpan != null
-    if (controller.textSpan == null || controller.data != null) {
+    if ((controller.textSpan == null && textSpan == null) ||
+        controller.data != null ||
+        data != null) {
       text = Text(
-        controller.data ?? '',
+        controller.data ?? data ?? '',
         key: controller.key,
         style: controller.style,
         strutStyle: controller.strutStyle,
@@ -71,7 +81,7 @@ class _TextBox extends StatelessWidget {
         locale: controller.locale,
         softWrap: controller.softWrap,
         overflow: controller.overflow,
-        textScaleFactor: controller.textScaleFactor,
+        textScaler: controller.textScaler,
         maxLines: controller.maxLines,
         semanticsLabel: controller.semanticsLabel,
         textWidthBasis: controller.textWidthBasis,
@@ -80,7 +90,7 @@ class _TextBox extends StatelessWidget {
       );
     } else {
       text = Text.rich(
-        controller.textSpan!,
+        controller.textSpan ?? textSpan!,
         key: controller.key,
         style: controller.style,
         strutStyle: controller.strutStyle,
@@ -89,7 +99,7 @@ class _TextBox extends StatelessWidget {
         locale: controller.locale,
         softWrap: controller.softWrap,
         overflow: controller.overflow,
-        textScaleFactor: controller.textScaleFactor,
+        textScaler: controller.textScaler,
         maxLines: controller.maxLines,
         semanticsLabel: controller.semanticsLabel,
         textWidthBasis: controller.textWidthBasis,
@@ -101,4 +111,39 @@ class _TextBox extends StatelessWidget {
   }
 }
 
-class _TextBoxController with TextFieldsBoxMixin, InheritedWidgetBoxMixin {}
+class TextBoxController with TextFieldsBoxMixin, InheritedWidgetBoxMixin {
+  TextBoxController({
+    Key? key,
+    String? data,
+    InlineSpan? textSpan,
+    TextStyle? style,
+    StrutStyle? strutStyle,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    @Deprecated('Deprecated. Use textScaler instead') double? textScaleFactor,
+    TextScaler? textScaler,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    TextHeightBehavior? textHeightBehavior,
+    Color? selectionColor,
+  }) {
+    this.key = key;
+    this.style = style;
+    this.strutStyle = strutStyle;
+    this.textAlign = textAlign;
+    this.textDirection = textDirection;
+    this.locale = locale;
+    this.softWrap = softWrap;
+    this.overflow = overflow;
+    this.textScaler = textScaler;
+    this.maxLines = maxLines;
+    this.semanticsLabel = semanticsLabel;
+    this.textWidthBasis = textWidthBasis;
+    this.textHeightBehavior = textHeightBehavior;
+    this.selectionColor = selectionColor;
+  }
+}

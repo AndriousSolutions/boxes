@@ -6,10 +6,21 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'dart:ui' as ui show TextHeightBehavior;
-import 'package:flutter/material.dart';
-
-export 'dart:ui' show TextHeightBehavior;
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        Color,
+        InlineSpan,
+        Key,
+        Locale,
+        StrutStyle,
+        TextAlign,
+        TextDirection,
+        TextHeightBehavior,
+        TextOverflow,
+        TextScaler,
+        TextStyle,
+        TextWidthBasis;
 
 mixin TextFieldsBoxMixin {
   late BuildContext context;
@@ -23,10 +34,12 @@ mixin TextFieldsBoxMixin {
   Locale? locale;
   bool? softWrap;
   TextOverflow? overflow;
+  @Deprecated('Deprecated. Use textScaler instead')
   double? textScaleFactor;
+  TextScaler? textScaler;
   int? maxLines;
   String? semanticsLabel;
   TextWidthBasis? textWidthBasis;
-  ui.TextHeightBehavior? textHeightBehavior;
+  TextHeightBehavior? textHeightBehavior;
   Color? selectionColor;
 }

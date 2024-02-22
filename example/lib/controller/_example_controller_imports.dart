@@ -13,3 +13,5 @@ export 'counter_controller.dart';
 export 'materialappbox_controller.dart';
 
 export 'scaffoldbox_controller.dart';
+
+export 'timer_controller.dart';

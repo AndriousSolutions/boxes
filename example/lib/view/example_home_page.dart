@@ -4,7 +4,7 @@
 // found in the LICENSE file.
 //
 
-import '../_example_imports.dart';
+import '../_example_app_imports.dart';
 
 import 'package:boxes/boxes.dart';
 
@@ -14,8 +14,10 @@ class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
     required this.title,
+    this.process,
   });
   final String title;
+  final String? process;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,11 +32,15 @@ class _HomePageState extends State<HomePage> {
     /// This separate class is concerned with the 'business end' of this app.
     /// At this location, you have no idea what that is---and that's a good thing.
     logic = BusinessEnd();
-    appDrawer = AppDrawer();
   }
 
   late BusinessEnd logic;
-  late AppDrawer appDrawer;
+
+  @override
+  void dispose() {
+    logic.dispose();
+    super.dispose();
+  }
 
   /// ScaffoldBox encloses the Scaffold widget, of course,
   /// but does supply the eight 'data source' properties (see. [ScaffoldBox]).
@@ -60,10 +66,10 @@ class _HomePageState extends State<HomePage> {
             title: Text(widget.title),
           ),
         ),
-        drawer: appDrawer.drawer,
         body: CenterColumnBox(
           controller: CenterColumnController(),
           children: <Widget>[
+//            logic.picture,
             logic.description,
             const Text(
               'You have pushed the button this many times:',

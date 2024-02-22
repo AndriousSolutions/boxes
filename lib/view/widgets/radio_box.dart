@@ -6,6 +6,7 @@ library boxes;
 // found in the LICENSE file.
 //
 import 'package:boxes/controller/controller_box.dart';
+
 import 'package:boxes/view/state_box.dart';
 
 import 'package:flutter/material.dart';
@@ -23,12 +24,6 @@ class RadioBox extends StatefulWidgetBox<String> {
     this.opt02,
     this.groupValue,
     this.onChanged,
-    // this.mainAxisAlignment,
-    // this.mainAxisSize,
-    // this.crossAxisAlignment,
-    // this.textDirection,
-    // this.verticalDirection,
-    // this.textBaseline,
   });
   //
   final Text? title;
@@ -41,26 +36,6 @@ class RadioBox extends StatefulWidgetBox<String> {
 
   final ValueChanged<String>? onChanged;
 
-  // /// How the children should be placed along the main axis.
-  // final MainAxisAlignment? mainAxisAlignment;
-  //
-  // /// How much space should be occupiedin the main axis.
-  // final MainAxisSize? mainAxisSize;
-  //
-  // /// How the children should be placed along the cross axis.
-  // final CrossAxisAlignment? crossAxisAlignment;
-  //
-  // /// Determines the order to lay children out horizontally and how to interpret
-  // /// `start` and `end` in the horizontal direction.
-  // final TextDirection? textDirection;
-  //
-  // /// Determines the order to lay children out vertically and how to interpret
-  // /// `start` and `end` in the vertical direction.
-  // final VerticalDirection? verticalDirection;
-  //
-  // /// If aligning items according to their baseline, which baseline to use.
-  // final TextBaseline? textBaseline;
-
   @override
   StateBox<String, RadioBox> createState() => _RadioBoxState();
 }
@@ -71,8 +46,8 @@ class _RadioBoxState extends StateBox<String, RadioBox> {
   void initState() {
     super.initState();
 
-    if (con is RadioBoxMixin<String>) {
-      box = con as RadioBoxMixin<String>?;
+    if (con is RadioFieldsBoxMixin<String>) {
+      box = con as RadioFieldsBoxMixin<String>?;
     }
 
     final opt01 = box?.opt01 ?? widget.opt01;
@@ -91,13 +66,13 @@ class _RadioBoxState extends StateBox<String, RadioBox> {
   late Widget? options;
   late String? initValue;
 
-  RadioBoxMixin<String>? box;
+  RadioFieldsBoxMixin<String>? box;
 
   @override
   void didUpdateWidget(covariant RadioBox oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (con is RadioBoxMixin<String>) {
-      box = con as RadioBoxMixin<String>?;
+    if (con is RadioFieldsBoxMixin<String>) {
+      box = con as RadioFieldsBoxMixin<String>?;
     } else {
       box = null;
     }
@@ -192,8 +167,8 @@ class _RadioBoxState extends StateBox<String, RadioBox> {
   }
 }
 
-/// User has the option to extend a class or use a mixin (see below)
-class RadioBoxController<T> with RadioBoxMixin<T> {
+/// User has the option to extend this class or use the mixin (see below)
+class RadioBoxController<T> with RadioFieldsBoxMixin<T> {
   RadioBoxController({
     Text? title,
     Text? opt01,
@@ -224,7 +199,7 @@ class RadioBoxController<T> with RadioBoxMixin<T> {
 }
 
 /// Supply the functions and properties of its implemented mixin.
-mixin RadioBoxMixin<T> implements ControllerBoxMixin<T> {
+mixin RadioFieldsBoxMixin<T> implements ControllerBoxMixin<T> {
   //
   @override
   StateBox<T, StatefulWidgetBox<T>>? boxState;

@@ -6,6 +6,7 @@ library boxes;
 // found in the LICENSE file.
 //
 import 'package:boxes/controller/controller_box.dart';
+
 import 'package:boxes/view/state_box.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -58,19 +59,19 @@ class _SpinnerBoxState extends StateBox<int, SpinnerBox> {
   @override
   void initState() {
     super.initState();
-    if (con is SpinnerBoxMixin) {
-      box = con as SpinnerBoxMixin?;
+    if (con is SpinnerFieldsBoxMixin) {
+      box = con as SpinnerFieldsBoxMixin?;
     }
     con.boxValue ??= null;
   }
 
-  SpinnerBoxMixin? box;
+  SpinnerFieldsBoxMixin? box;
 
   @override
   void didUpdateWidget(covariant SpinnerBox oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (con is SpinnerBoxMixin) {
-      box = con as SpinnerBoxMixin?;
+    if (con is SpinnerFieldsBoxMixin) {
+      box = con as SpinnerFieldsBoxMixin?;
     } else {
       box = null;
     }
@@ -144,8 +145,8 @@ class _SpinnerBoxState extends StateBox<int, SpinnerBox> {
   }
 }
 
-/// User has the option to extend a class or use a mixin (see below)
-class SpinnerBoxController with SpinnerBoxMixin {
+/// User has the option to extend this class or use the mixin (see below)
+class SpinnerBoxController with SpinnerFieldsBoxMixin {
   SpinnerBoxController({
     double? diameterRatio,
     Color? backgroundColor,
@@ -180,7 +181,7 @@ class SpinnerBoxController with SpinnerBoxMixin {
 }
 
 /// Supply the functions and properties of its implemented mixin.
-mixin SpinnerBoxMixin implements ControllerBoxMixin<int> {
+mixin SpinnerFieldsBoxMixin implements ControllerBoxMixin<int> {
   //
   @override
   StateBox<int, StatefulWidgetBox<int>>? boxState;

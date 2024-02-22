@@ -5,9 +5,11 @@ library boxes;
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-import 'package:boxes/controller/controller_box.dart';
 
-import 'package:flutter/material.dart';
+import 'package:boxes/controller/controller_box.dart'
+    show ControllerBox, ControllerBoxMixin;
+
+import 'package:flutter/material.dart' show State, StatefulWidget;
 
 abstract class StatefulWidgetBox<T> extends StatefulWidget {
   StatefulWidgetBox({

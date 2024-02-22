@@ -6,7 +6,36 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        Action,
+        BackButtonDispatcher,
+        Color,
+        Curve,
+        GenerateAppTitle,
+        GlobalKey,
+        InitialRouteListFactory,
+        Intent,
+        Key,
+        Locale,
+        LocaleListResolutionCallback,
+        LocaleResolutionCallback,
+        LocalizationsDelegate,
+        NavigatorObserver,
+        NavigatorState,
+        RouteFactory,
+        RouteInformationParser,
+        RouteInformationProvider,
+        RouterConfig,
+        RouterDelegate,
+        ScaffoldMessengerState,
+        ScrollBehavior,
+        ShortcutActivator,
+        ThemeData,
+        ThemeMode,
+        TransitionBuilder,
+        Widget,
+        WidgetBuilder;
 
 mixin MaterialAppFieldsBoxMixin {
   Key? key;

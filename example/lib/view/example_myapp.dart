@@ -4,7 +4,7 @@
 // found in the LICENSE file.
 //
 
-import '../_example_imports.dart';
+import '../_example_app_imports.dart';
 
 import 'package:boxes/boxes.dart';
 
@@ -13,9 +13,10 @@ class MyApp extends StatelessWidget {
   ///
   const MyApp({super.key});
 
-  /// The controller 'controls' the widget's many properties and most events.
+  /// MaterialApp widget replaced by its 'box' equivalent.
   @override
   Widget build(BuildContext context) => MaterialAppBox(
+        /// The controller 'controls' the widget's many properties and most events.
         controller: MaterialAppController(),
 
         /// The only two regular properties available to you: home and routes.

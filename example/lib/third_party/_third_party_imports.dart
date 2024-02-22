@@ -9,5 +9,3 @@ export 'app_drawer.dart';
 export 'brightness_setting.dart';
 
 export 'group_value.dart';
-
-export 'switchbox_controller.dart';

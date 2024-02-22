@@ -6,7 +6,17 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        AlignmentGeometry,
+        BoxConstraints,
+        Clip,
+        Color,
+        Decoration,
+        EdgeInsetsGeometry,
+        Key,
+        Matrix4,
+        Widget;
 
 mixin ContainerFieldsBoxMixin {
   Key? key;
@@ -21,5 +31,6 @@ mixin ContainerFieldsBoxMixin {
   EdgeInsetsGeometry? margin;
   Matrix4? transform;
   AlignmentGeometry? transformAlignment;
+  Widget? child;
   Clip? clipBehavior;
 }

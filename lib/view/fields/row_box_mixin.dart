@@ -6,7 +6,15 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        CrossAxisAlignment,
+        Key,
+        MainAxisAlignment,
+        MainAxisSize,
+        TextBaseline,
+        TextDirection,
+        VerticalDirection;
 
 mixin RowFieldsBoxMixin {
   Key? key;

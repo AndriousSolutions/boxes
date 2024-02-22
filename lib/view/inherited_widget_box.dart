@@ -6,9 +6,19 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        InheritedElement,
+        InheritedWidget,
+        Key,
+        ObjectKey,
+        State,
+        StatefulWidget,
+        Widget;
 
-import 'package:boxes/controller/InheritedWidget_box_mixin.dart';
+import 'package:boxes/controller/InheritedWidget_box_mixin.dart'
+    show InheritedWidgetBoxMixin;
 
 ///
 class InheritedBoxWidget extends StatefulWidget {
@@ -35,25 +45,25 @@ class InheritedBoxWidgetState extends State<InheritedBoxWidget> {
   @override
   void initState() {
     super.initState();
+    _widget = widget;
     // controller collects this State object.
-    widget.controller.initState(this);
+    _widget.controller.initInherited(this);
   }
+
+  late InheritedBoxWidget _widget;
 
   @override
   void dispose() {
-    widget.controller.dispose(this);
+    _widget.controller.disposeInherited(this);
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    final widget = this.widget;
-    return InheritedWidgetBox(
-      key: ObjectKey(this),
-      controller: widget.controller,
-      child: widget.child,
-    );
-  }
+  Widget build(BuildContext context) => InheritedWidgetBox(
+        key: ObjectKey(this),
+        controller: _widget.controller,
+        child: _widget.child,
+      );
 }
 
 /// The InheritedWidget potentially assigned to any box widget
@@ -77,6 +87,7 @@ class InheritedWidgetBox extends InheritedWidget {
   bool updateShouldNotify(InheritedWidgetBox oldWidget) {
     var update = controller == oldWidget.controller;
     if (update) {
+      // The controller itself determines whether to update dependencies or not.
       update = controller.updateShouldNotify(oldWidget);
     }
     return update;

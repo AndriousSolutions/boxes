@@ -5,7 +5,8 @@ library boxes;
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 //
-import 'package:boxes/view/state_box.dart';
+
+import '/view/state_box.dart' show StateBox, StatefulWidgetBox;
 
 mixin ControllerBoxMixin<T> {
   /// The current value

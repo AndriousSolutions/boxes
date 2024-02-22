@@ -6,10 +6,15 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:boxes/boxes.dart';
+import 'package:boxes/boxes_view.dart'
+    show
+        InheritedWidgetBoxMixin,
+        ScaffoldFieldsBoxMixin,
+        makeInheritedWidgetBox;
+
 import 'package:flutter/material.dart';
 
-import 'package:flutter/gestures.dart';
+import 'package:flutter/gestures.dart' show DragStartBehavior;
 
 /// Likely needed by subclasses
 export 'package:boxes/controller/controller_box.dart';
@@ -52,6 +57,7 @@ class ScaffoldBox extends StatelessWidget {
 ///
 class _ScaffoldBox extends StatelessWidget {
   _ScaffoldBox({
+    // ignore: unused_element
     super.key,
     this.appBar,
     this.body,
@@ -62,7 +68,7 @@ class _ScaffoldBox extends StatelessWidget {
     this.floatingActionButton,
     this.persistentFooterButtons,
     ScaffoldFieldsBoxMixin? controller,
-  }) : controller = controller ?? _ScaffoldBoxController();
+  }) : controller = controller ?? ScaffoldBoxController();
 
   final PreferredSizeWidget? appBar;
   final Widget? body;
@@ -117,6 +123,61 @@ class _ScaffoldBox extends StatelessWidget {
   }
 }
 
-/// Used if a controller is not explicitly provided to the Box widget above.
-class _ScaffoldBoxController
-    with ScaffoldFieldsBoxMixin, InheritedWidgetBoxMixin {}
+/// User has the option to extend this class or use the indicated mixin
+class ScaffoldBoxController
+    with ScaffoldFieldsBoxMixin, InheritedWidgetBoxMixin {
+  ///
+  ScaffoldBoxController({
+    Key? key,
+    bool? extendBody,
+    bool? extendBodyBehindAppBar,
+    PreferredSizeWidget? appBar,
+    Widget? body,
+    Widget? floatingActionButton,
+    FloatingActionButtonLocation? floatingActionButtonLocation,
+    FloatingActionButtonAnimator? floatingActionButtonAnimator,
+    List<Widget>? persistentFooterButtons,
+    AlignmentDirectional? persistentFooterAlignment,
+    Widget? drawer,
+    DrawerCallback? onDrawerChanged,
+    Widget? endDrawer,
+    DrawerCallback? onEndDrawerChanged,
+    Color? drawerScrimColor,
+    Color? backgroundColor,
+    Widget? bottomNavigationBar,
+    Widget? bottomSheet,
+    bool? resizeToAvoidBottomInset,
+    bool? primary,
+    DragStartBehavior? drawerDragStartBehavior,
+    double? drawerEdgeDragWidth,
+    bool? drawerEnableOpenDragGesture,
+    bool? endDrawerEnableOpenDragGesture,
+    String? restorationId,
+  }) {
+    this.key = key;
+    this.extendBody = extendBody;
+    this.extendBodyBehindAppBar = extendBodyBehindAppBar;
+    this.appBar = appBar;
+    this.body = body;
+    this.floatingActionButton = floatingActionButton;
+    this.floatingActionButtonLocation = floatingActionButtonLocation;
+    this.floatingActionButtonAnimator = floatingActionButtonAnimator;
+    this.persistentFooterButtons = persistentFooterButtons;
+    this.persistentFooterAlignment = persistentFooterAlignment;
+    this.drawer = drawer;
+    this.onDrawerChanged = onDrawerChanged;
+    this.endDrawer = endDrawer;
+    this.onEndDrawerChanged = onEndDrawerChanged;
+    this.drawerScrimColor = drawerScrimColor;
+    this.backgroundColor = backgroundColor;
+    this.bottomNavigationBar = bottomNavigationBar;
+    this.bottomSheet = bottomSheet;
+    this.resizeToAvoidBottomInset = resizeToAvoidBottomInset;
+    this.primary = primary;
+    this.drawerDragStartBehavior = drawerDragStartBehavior;
+    this.drawerEdgeDragWidth = drawerEdgeDragWidth;
+    this.drawerEnableOpenDragGesture = drawerEnableOpenDragGesture;
+    this.endDrawerEnableOpenDragGesture = endDrawerEnableOpenDragGesture;
+    this.restorationId = restorationId;
+  }
+}

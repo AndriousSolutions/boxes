@@ -6,10 +6,12 @@ library boxes;
 // found in the LICENSE file.
 //
 
-import 'package:boxes/view/_view_export_file.dart';
+import 'package:boxes/boxes_view.dart'
+    show AppBarFieldsBoxMixin, InheritedWidgetBoxMixin, makeInheritedWidgetBox;
 
 import 'package:flutter/material.dart';
 
+/// Likely needed
 export 'package:boxes/controller/InheritedWidget_box_mixin.dart';
 
 ///
@@ -51,6 +53,7 @@ class _PreferredAppBarSize extends Size {
 class _AppBarBox extends StatelessWidget {
   ///
   _AppBarBox({
+    // ignore: unused_element
     super.key,
     AppBarFieldsBoxMixin? controller,
     required this.actions,

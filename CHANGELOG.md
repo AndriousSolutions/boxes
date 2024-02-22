@@ -1,4 +1,9 @@
 
+## 1.3.0
+November 16,2023
+- Organized all the source code's import statements 
+- Standardize naming convention of mixins: SpinnerFieldsBoxMixin, RadioFieldsBoxMixin, etc.
+
 ## 1.2.0
 November 15, 2023
 - Extended example app
